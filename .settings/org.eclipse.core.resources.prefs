@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/message/ValidationMessages.properties=UTF-8
+encoding//src/main/resources/message/ValidationMessages_es.properties=UTF-8
+encoding//src/main/resources/message/labeltexts.properties=UTF-8
+encoding//src/main/resources/message/labeltexts_en.properties=UTF-8
+encoding//src/main/resources/message/labeltexts_es.properties=UTF-8
+encoding//src/main/webapp/WEB-INF/web.xml=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

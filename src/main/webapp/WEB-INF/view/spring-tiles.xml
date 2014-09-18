@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="dashboard/*" template="/WEB-INF/view/tiles/template/dashboardLayout.jsp">
+		<put-attribute name="body" value="/WEB-INF/view/tiles/{1}.jsp" />
+	</definition>
+	
+	<definition name="dashboard/profile" extends="dashboard/*" template="/WEB-INF/view/tiles/template/dashboardLayout.jsp">
+		<put-attribute name="body" value="dashboard.profile.body" />
+	</definition>
+	
+	<definition name="dashboard.profile.body" template="/WEB-INF/view/tiles/template/profileLayout.jsp">
+		<put-attribute name="basicInfo" value="/WEB-INF/view/tiles/profileBasicInfo.jsp" />
+	</definition>
+	
+	<definition name="home/*" template="/WEB-INF/view/tiles/template/signLayout.jsp">
+		<put-attribute name="body" value="/WEB-INF/view/tiles/{1}.jsp" />
+	</definition>
+</tiles-definitions>

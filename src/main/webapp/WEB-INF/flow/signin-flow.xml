@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow.xsd" 
+    start-state="ini"
+    parent="common-flow">
+    
+    <view-state id="ini" model="signinUser" view="home/signin">
+        <transition on="doSignin" to="doSigninEvent">
+        	<evaluate expression="signinAction.validateUser(signinUser,messageContext)" result="flowScope.isValidUser"></evaluate>
+        </transition>
+    	<transition on="signup" to="endSignup" validate="false">
+    		<set name="externalContext.sessionMap.flowToken" value="'signup'" type="string" />
+    	</transition>
+    	<transition on="forgot" to="forgotEvent" validate="false"></transition>
+    </view-state>
+    
+    <decision-state id="doSigninEvent">
+    	<if test="flowScope.isValidUser" then="signinOK" else="signinERROR"/>
+    </decision-state>
+    
+    <view-state id="forgotEvent" model="forgotUser" view="home/forgot">
+     	<transition on="doRecover" to="endPassRecover">
+    		<evaluate expression="signinAction.recoverPass(email)"></evaluate>
+    	</transition>
+    </view-state>
+    
+    <end-state id="endSignup" view="flowRedirect:main-flow"></end-state>
+    <end-state id="endPassRecover"></end-state>
+    <end-state id="signinOK" view="flowRedirect:dashboard-flow"></end-state>
+    <end-state id="homeEvent" view="flowRedirect:main-flow"></end-state>
+     
+</flow>
