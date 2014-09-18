@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow.xsd
+        " 
+    start-state="ini"
+    parent="common-flow">
+    
+    <secured attributes="ROLE_USER"/>
+	
+	<view-state id="base">
+		<on-entry>
+            <evaluate expression="dashboardAction.getMessages()" result="viewScope.messages"/>
+            <evaluate expression="dashboardAction.getTasks()" result="viewScope.tasks"/>
+            <evaluate expression="dashboardAction.getAlerts()" result="viewScope.alerts"/>
+        </on-entry>
+	</view-state>
+	
+    <view-state id="ini" view="dashboard/main" parent="#base" >	
+		<on-entry>
+    		<evaluate expression="dashboardAction.onEntry(flowRequestContext)" />
+    	</on-entry>
+    </view-state>
+    
+    <view-state id="profileEvent" model="userData" view="dashboard/profile"  parent="#base">
+    	<on-entry>
+    		<evaluate expression="profileAction.loadProfileData()" result="viewScope.userData" />
+    	</on-entry>
+    </view-state>
+    
+    <view-state id="settingsEvent" view="dashboard/settings">
+    </view-state>
+    <end-state id="homeEvent" view="flowRedirect:dashboard-flow"></end-state>
+    
+    <global-transitions>
+    	<transition on="doProfile" to="profileEvent"></transition>
+    	<transition on="doSettings" to="settingsEvent"></transition>
+    </global-transitions> 
+</flow>

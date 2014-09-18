@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow.xsd
+        " 
+    start-state="homeEvent"
+    parent="common-flow">
+    
+    <decision-state id="homeEvent">
+    	<if test="homeAction.validateFlowInitActions() == 'signup'" then="signupEvent" else="homeEventGo"/>
+    </decision-state>
+    
+    <view-state id="homeEventGo" view="home">
+    	<on-entry>
+    		<evaluate expression="homeAction.onEntry(flowRequestContext)" />
+            <evaluate expression="homeAction.getCarouselData()" result="viewScope.carousel"/>
+        </on-entry>
+        <transition on="signin" to="signinEvent"></transition>
+        <transition on="signup" to="signupEvent"></transition>
+    </view-state>
+    
+    <subflow-state id="signupEvent" subflow="signup-flow">
+    	<transition on="endSignin" to="signinEvent"></transition>
+    	<transition on="homeEvent" to="homeEvent"></transition>
+    	<transition on="endConfirmEmail" to="homeEvent"></transition> 
+    </subflow-state>
+    
+    <end-state id="dashboardEvent" view="flowRedirect:dashboard-flow"></end-state>
+    <end-state id="signinEvent" view="flowRedirect:signin-flow"></end-state>
+</flow>

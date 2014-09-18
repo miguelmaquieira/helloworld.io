@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow.xsd" 
+    start-state="ini"
+    parent="common-flow">
+    
+   	<var  name="signupUser" class="com.helloworldio.front.web.domain.SignupUser"/>
+   	
+    <view-state id="ini" model="signupUser" view="home/signup">
+        <transition on="doSignup" to="doSignupEvent">
+        	<evaluate expression="signupAction.validateUser(signupUser, messageContext)" result="flowScope.isValidUser"></evaluate>
+        </transition>
+    	<transition on="signin" to="endSignin" validate="false"></transition>
+    </view-state>
+    
+    <decision-state id="doSignupEvent">
+    	<if test="flowScope.isValidUser" then="createUserEvent" else="ini"/>
+    </decision-state>
+    
+     <decision-state id="createUserEvent">
+    	<if test="signupAction.createUser(signupUser, messageContext)" then="endConfirmEmail" else="ini"/>
+    </decision-state>
+    
+    <end-state id="endSignin"></end-state>
+    <end-state id="homeEvent"></end-state>
+    <end-state id="endConfirmEmail"></end-state>
+</flow>
