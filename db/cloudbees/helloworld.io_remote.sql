@@ -1,10 +1,3 @@
-CREATE DATABASE helloworldio;
-
-GRANT ALL ON helloworldio.* TO hellouser@'%' IDENTIFIED BY 'passhellouser';
-GRANT ALL ON helloworldio.* TO hellouser@localhost IDENTIFIED BY 'passhellouser';
-
-USE helloworldio;
-
 CREATE TABLE Users (
 	token varchar(64) NOT NULL PRIMARY KEY,
 	email varchar(64),
