@@ -257,14 +257,6 @@
 				<div class="col-lg-9">
 					<a href="#" id="birthdate" data-type="combodate" data-url="${formAjaxUpdateUrl}" data-value="${userData.birthdate}"></a>
 				</div>
-<!-- 				<div class="col-lg-2"> -->
-<!-- 					<label for="showBirthdate" class="control-label pull-right col-lg-6">Public</label> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-lg-1">	 -->
-<!-- 					<div class="pull-right"> -->
-<!-- 						<input type="checkbox" id="showBirthdate" name="showBirthdate" data-size="small" checked="checked"> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
 			</div>
 			<div class="form-group">
 				<label for="fromLocation" class="control-label col-lg-3"><spring:message code="dashboard.profile.info.from" /></label>
